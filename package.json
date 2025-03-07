@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./src/**/*.ts",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "ts-node src/server.ts",
+    "lint:fix": "eslint ./src/**/*.ts --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^9",
+    "eslint-config-standard-with-typescript": "^43",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jest": "^27",
+    "eslint-plugin-n": "^16",
+    "eslint-plugin-prettier": "^5",
+    "eslint-plugin-promise": "^6",
+    "prettier": "^3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
