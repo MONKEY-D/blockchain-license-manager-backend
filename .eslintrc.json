@@ -4,7 +4,7 @@
     "node": true,
     "jest/globals": true
   },
-  "extends": ["standard-with-typescript", "prettier"],
+  "extends": ["prettier"],
   "plugins": ["jest", "prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
