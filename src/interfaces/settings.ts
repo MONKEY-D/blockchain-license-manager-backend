@@ -8,4 +8,8 @@ export interface ISettings {
 
   smtpUser: string
   smtpPass: string
+
+  keyManagerContract: string
+  rpcURL: string
+  ownerPvtKey: string
 }

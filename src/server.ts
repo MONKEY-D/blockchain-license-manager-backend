@@ -3,6 +3,7 @@ import cors from 'cors'
 import { settings } from './settings'
 import logger from './utils/logger/logger'
 import authRouter from './routes/auth'
+import keyManager from './routes/key-manager'
 
 const app = express()
 app.set('trust proxy', true)
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/auth', authRouter)
+app.use('/api/key-manager', keyManager)
 
 app.listen(settings.port, () => {
   logger.info(`Server is running on ${settings.url}:${settings.port}`)

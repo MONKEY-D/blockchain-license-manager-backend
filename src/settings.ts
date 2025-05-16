@@ -17,6 +17,10 @@ const getSettings = (): ISettings => {
 
     smtpUser: String(process.env.SMTP_USER ?? ''),
     smtpPass: String(process.env.SMTP_PASS ?? ''),
+
+    keyManagerContract: String(process.env.KEY_MANAGER_ADDRESS ?? ''),
+    rpcURL: String(process.env.RPC_URL ?? ''),
+    ownerPvtKey: String(process.env.PRIVATE_KEY ?? ''),
   }
 }
 
