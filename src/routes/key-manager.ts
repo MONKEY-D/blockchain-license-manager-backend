@@ -23,6 +23,7 @@ router.post('/create-key', async (req, res) => {
     responseData(res, 'Key created successfully')
   } catch (error) {
     if (error instanceof Error) {
+      console.log(error)
       if (error.message.includes('KEY_ALREADY_EXISTS')) {
         responseError(res, 'Key Already used', ResponseStatus.BadRequest) // Bad Request
       } else {
@@ -34,6 +35,7 @@ router.post('/create-key', async (req, res) => {
 
 router.post('/activate-key', async (req, res) => {
   try {
+    console.log('🔥 HIT /activate-key');
     const parsed = SActivateKey.safeParse(req.body)
     if (!parsed.success) {
       responseError(res, 'Invalid key')
@@ -42,16 +44,26 @@ router.post('/activate-key', async (req, res) => {
     const { key } = parsed.data
 
     const tx = await keyManager.activateKey(key)
-    await tx.wait()
 
-    responseData(res, 'Key activated successfully')
+    console.log('Waiting for transaction...')
+    await tx.wait()
+    console.log('Transaction confirmed')
+
+    // Fetch updated info
+    const info = await keyManager.getKeyInfo(key)
+    console.log('Retrived key info:', info)
+
+    responseData(res, {
+      message: 'Key activated successfully',
+      activation_date: info.activationDate,
+      expiration_date: info.expiryDate,
+    })
   } catch (error) {
     if (error instanceof Error) {
-      // Example: error.message might include "Key does not exist" or "Key is already active or doesn't exist"
       if (error.message.includes('KEY_DOES_NOT_EXIST')) {
         responseError(res, 'No such key exists', 400) // Bad Request
       } else if (error.message.includes('KEY_ACTIVE_OR_DOESNT_EXIST')) {
-        responseError(res, 'Key already activated or doesn\'t exist', 400) // Bad Request
+        responseError(res, "Key already activated or doesn't exist", 400) // Bad Request
       } else {
         responseError(res, 'Internal Server Error', 500)
       }
@@ -78,7 +90,7 @@ router.get('/key-info', async (req, res) => {
     if (error instanceof Error) {
       // Example: error.message might include "Key does not exist" or "Key is already active or doesn't exist"
       if (error.message.includes('KEY_DOES_NOT_EXIST')) {
-        responseError(res, "Key Does Not exist", 400) // Bad Request
+        responseError(res, 'Key Does Not exist', 400) // Bad Request
       } else {
         responseError(res, 'Internal Server Error', 500)
       }
